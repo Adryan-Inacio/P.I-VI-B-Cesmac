@@ -45,7 +45,7 @@ Sistema web desenvolvido em **Python/Django** para o **Projeto Integrador VI-B**
    ```
 
 5. **Acesse no navegador:**
-   Portal Público para denúncias: http://127.0.0.1:8000/
-   Área de login: http://127.0.0.1:8000/login/
-   Usuário: `admin`
+   Portal Público para denúncias: http://127.0.0.1:8000/  
+   Área de login: http://127.0.0.1:8000/login/  
+   Usuário: `admin`  
    Senha: `cesmac123`
