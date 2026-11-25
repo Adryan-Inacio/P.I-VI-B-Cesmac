@@ -1,0 +1,86 @@
+{% extends 'denuncias/base.html' %}
+
+{% block content %}
+<div class="row align-items-center g-5 py-3">
+    <div class="col-lg-7">
+        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 mb-3">
+            Conformidade com a LGPD (Lei nº 13.709/2018)
+        </span>
+        <h1 class="display-5 fw-bold text-dark mb-3">
+            Denuncie vazamentos de dados com sigilo absoluto.
+        </h1>
+        <p class="lead text-secondary mb-4">
+            O <strong>TrustLine</strong> é um canal seguro para colaboradores, parceiros e terceiros reportarem incidentes de segurança, exposição de dados pessoais ou práticas inadequadas sem medo de retaliação.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+            <a href="{% url 'registrar_denuncia' %}" class="btn btn-primary btn-lg px-4 fw-semibold">
+                Registrar Nova Denúncia
+            </a>
+            <a href="{% url 'consultar_denuncia' %}" class="btn btn-outline-dark btn-lg px-4">
+                Consultar Protocolo Hash
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card card-clean p-4">
+            <h5 class="fw-bold mb-3">Garantias Técnicas e Éticas</h5>
+            <ul class="list-unstyled mb-0 d-flex flex-column gap-3">
+                <li class="d-flex gap-3">
+                    <span class="fs-4">🕵️</span>
+                    <div>
+                        <strong>Anonimato Real (Minimização)</strong>
+                        <p class="text-muted small mb-0">Não coletamos endereço IP, cookies de rastreamento ou dados obrigatórios de identificação.</p>
+                    </div>
+                </li>
+                <li class="d-flex gap-3">
+                    <span class="fs-4">🔐</span>
+                    <div>
+                        <strong>Criptografia em Repouso</strong>
+                        <p class="text-muted small mb-0">Todos os relatos e dados sigilosos são cifrados antes de serem gravados no banco de dados.</p>
+                    </div>
+                </li>
+                <li class="d-flex gap-3">
+                    <span class="fs-4">🔑</span>
+                    <div>
+                        <strong>Acompanhamento por Hash SHA-256</strong>
+                        <p class="text-muted small mb-0">Você recebe um código único para acompanhar a apuração e exercer seus direitos de titular.</p>
+                    </div>
+                </li>
+                <li class="d-flex gap-3">
+                    <span class="fs-4">📋</span>
+                    <div>
+                        <strong>Trilha de Auditoria</strong>
+                        <p class="text-muted small mb-0">Somente investigadores autorizados acessam os relatos, com registro de data, hora e responsável.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<hr class="my-5">
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card card-clean p-4 h-100">
+            <h6 class="text-uppercase text-primary fw-bold small">O que reportar</h6>
+            <h5 class="fw-bold">Vazamento de Dados</h5>
+            <p class="text-muted small mb-0">Exposição indevida de bancos de dados, planilhas com CPF/e-mails, credenciais vazadas ou falhas de privacidade.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-clean p-4 h-100">
+            <h6 class="text-uppercase text-primary fw-bold small">Prevenção</h6>
+            <h5 class="fw-bold">Práticas Inadequadas</h5>
+            <p class="text-muted small mb-0">Compartilhamento de senhas, armazenamento inseguro de documentos sensíveis ou descumprimento de políticas internas.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-clean p-4 h-100">
+            <h6 class="text-uppercase text-primary fw-bold small">Monitoramento</h6>
+            <h5 class="fw-bold">Atividades Suspeitas</h5>
+            <p class="text-muted small mb-0">Acessos não autorizados, tentativa de fraude interna ou extração anormal de informações confidenciais.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

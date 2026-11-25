@@ -1,0 +1,42 @@
+{% extends 'denuncias/base.html' %}
+
+{% block title %}Transparência e LGPD — TrustLine{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card card-clean p-4 p-md-5">
+            <h2 class="fw-bold mb-3">Transparência e Conformidade com a LGPD</h2>
+            <p class="text-muted mb-4">
+                O <strong>TrustLine</strong> foi projetado sob o conceito de <em>Privacy by Design</em> (Privacidade desde a Concepção), aplicando na prática os princípios da Lei nº 13.709/2018.
+            </p>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-primary">1. Finalidade (Art. 6º, I)</h5>
+                    <p class="small text-secondary">Os relatos enviados são utilizados exclusivamente para investigar, conter e mitigar incidentes de segurança da informação e vazamentos de dados.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-primary">2. Necessidade e Minimização (Art. 6º, III)</h5>
+                    <p class="small text-secondary">Não coletamos dados "por via das dúvidas". O envio é anônimo por padrão, sem registro de IP, localização ou identificação obrigatória.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-primary">3. Segurança e Criptografia (Art. 6º, VII)</h5>
+                    <p class="small text-secondary">O relato e qualquer contato opcional informado pelo denunciante são criptografados com algoritmo simétrico antes de serem gravados no banco.</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-primary">4. Responsabilização e Auditoria (Art. 6º, X)</h5>
+                    <p class="small text-secondary">Apenas membros autenticados do comitê autorizado podem ler as denúncias, e cada leitura ou alteração gera um log imutável na trilha de auditoria.</p>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <h5 class="fw-bold">Direitos do Titular (Art. 18 da LGPD)</h5>
+            <p class="small text-secondary mb-0">
+                Caso você opte por informar seu nome ou e-mail na denúncia, você mantém total controle sobre essa informação, podendo acessar o protocolo e solicitar a <strong>eliminação/anonimização imediata</strong> dos seus dados pessoais a qualquer momento, sem prejuízo à investigação do incidente.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

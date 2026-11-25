@@ -1,0 +1,78 @@
+{% extends 'denuncias/base.html' %}
+
+{% block title %}Analisar {{ denuncia.protocolo }} — TrustLine{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="{% url 'painel_admin' %}" class="btn btn-sm btn-outline-secondary">← Voltar ao Painel</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="card card-clean p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold font-monospace mb-0">{{ denuncia.protocolo }}</h4>
+                <span class="badge bg-primary fs-6">{{ denuncia.get_status_display }}</span>
+            </div>
+
+            <div class="row g-3 small mb-3">
+                <div class="col-sm-6">
+                    <strong>Vínculo do Relator:</strong> {{ denuncia.get_perfil_denunciante_display }}
+                </div>
+                <div class="col-sm-6">
+                    <strong>Data do Incidente:</strong> {{ denuncia.data_incidente|date:"d/m/Y" }}
+                </div>
+                <div class="col-sm-6">
+                    <strong>Empresa / Setor:</strong> {{ denuncia.empresa_ou_setor }}
+                </div>
+                <div class="col-sm-6">
+                    <strong>Categoria:</strong> {{ denuncia.get_categoria_display }}
+                </div>
+            </div>
+
+            <div class="p-3 bg-warning-subtle border border-warning rounded mb-3 small">
+                <strong>Identificação do Denunciante (Descriptografada):</strong><br>
+                {{ denuncia.identificacao_legivel }}
+            </div>
+
+            <div class="p-3 bg-light border rounded">
+                <strong class="d-block mb-2">Relato Detalhado (Descriptografado):</strong>
+                <p class="mb-0">{{ denuncia.relato_legivel|linebreaksbr }}</p>
+            </div>
+        </div>
+
+        <div class="card card-clean p-4">
+            <h6 class="fw-bold mb-3">Histórico de Auditoria deste Protocolo</h6>
+            <ul class="list-group list-group-flush small">
+                {% for log in logs_denuncia %}
+                    <li class="list-group-item px-0 d-flex justify-content-between">
+                        <span><strong>{{ log.usuario.username|default:"Sistema/Titular" }}</strong>: {{ log.acao }}</span>
+                        <span class="text-muted">{{ log.data_hora|date:"d/m/Y H:i" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card card-clean p-4">
+            <h5 class="fw-bold mb-3">Atualizar Status e Parecer</h5>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Status da Investigação</label>
+                    {{ form.status }}
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Parecer ao Denunciante</label>
+                    {{ form.parecer_investigador }}
+                    <div class="form-text">Este texto ficará visível para quem consultar o protocolo hash.</div>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success fw-semibold">Salvar Atualização</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

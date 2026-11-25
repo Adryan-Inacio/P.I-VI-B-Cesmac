@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TrustLine — Canal Seguro de Denúncias e LGPD{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-dark: #0f172a;
+            --tl-primary: #1e3a8a;
+            --tl-accent: #10b981;
+            --tl-bg: #f8fafc;
+        }
+        body {
+            background-color: var(--tl-bg);
+            color: #1e293b;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar-trustline {
+            background-color: var(--tl-dark);
+            border-bottom: 3px solid var(--tl-accent);
+        }
+        .brand-badge {
+            background-color: var(--tl-accent);
+            color: var(--tl-dark);
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 6px;
+        }
+        .card-clean {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+            background: #ffffff;
+        }
+        .protocolo-box {
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: #0f172a;
+            color: #10b981;
+            padding: 16px 24px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        footer {
+            margin-top: auto;
+            background-color: var(--tl-dark);
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-trustline py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'index' %}">
+                🛡️ TrustLine <span class="brand-badge">LGPD & ÉTICA</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registrar_denuncia' %}">Fazer Denúncia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'consultar_denuncia' %}">Acompanhar Protocolo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'politica_privacidade' %}">Privacidade & LGPD</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="btn btn-sm btn-success fw-semibold" href="{% url 'painel_admin' %}">Painel de Apuração</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-light">Sair ({{ user.username }})</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-sm btn-outline-light" href="{% url 'login' %}">Área Restrita</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="py-4">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <div>
+                <strong class="text-white">TrustLine</strong> — Canal Confidencial de Integridade e Proteção de Dados (Lei nº 13.709/2018).
+            </div>
+            <div>
+                Zero rastreamento de IP • Criptografia em Repouso • Trilha de Auditoria
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

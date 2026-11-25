@@ -1,0 +1,88 @@
+{% extends 'denuncias/base.html' %}
+
+{% block title %}Consultar Protocolo — TrustLine{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card card-clean p-4 mb-4">
+            <h3 class="fw-bold mb-2">Acompanhar Denúncia</h3>
+            <p class="text-muted small mb-3">
+                Insira o código hash recebido no momento do envio para verificar o status da investigação e respostas do comitê.
+            </p>
+            <form method="post" class="row g-2">
+                {% csrf_token %}
+                <div class="col-md-9">
+                    {{ form.protocolo }}
+                </div>
+                <div class="col-md-3 d-grid">
+                    <button type="submit" class="btn btn-primary fw-semibold">Consultar</button>
+                </div>
+            </form>
+        </div>
+
+        {% if nao_encontrada %}
+            <div class="alert alert-danger">
+                Protocolo não encontrado. Verifique se o código foi digitado corretamente (ex.: <code>TL-XXXX-XXXX-XXXX</code>).
+            </div>
+        {% endif %}
+
+        {% if denuncia %}
+            <div class="card card-clean p-4">
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+                    <div>
+                        <span class="text-muted small">Protocolo:</span>
+                        <h4 class="fw-bold font-monospace mb-0">{{ denuncia.protocolo }}</h4>
+                    </div>
+                    <span class="badge bg-primary fs-6">{{ denuncia.get_status_display }}</span>
+                </div>
+
+                <hr>
+
+                <div class="row g-3 mb-3 small">
+                    <div class="col-md-4">
+                        <strong>Data do Registro:</strong><br>
+                        {{ denuncia.criado_em|date:"d/m/Y H:i" }}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Categoria:</strong><br>
+                        {{ denuncia.get_categoria_display }}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Modalidade:</strong><br>
+                        {% if denuncia.anonima %}
+                            <span class="text-success fw-semibold">100% Anônima</span>
+                        {% else %}
+                            <span class="text-warning-emphasis fw-semibold">Identificação Sigilosa</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="p-3 bg-light rounded border mb-4">
+                    <h6 class="fw-bold mb-2">Parecer / Atualização da Equipe de Investigação:</h6>
+                    {% if denuncia.parecer_investigador %}
+                        <p class="mb-0">{{ denuncia.parecer_investigador|linebreaksbr }}</p>
+                    {% else %}
+                        <p class="text-muted fst-italic mb-0">Sua denúncia está na fila de análise. Nenhuma resposta publicada até o momento.</p>
+                    {% endif %}
+                </div>
+
+                {% if not denuncia.anonima %}
+                    <div class="alert alert-secondary d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-0">
+                        <div class="small">
+                            <strong>Direitos do Titular (LGPD — Art. 18):</strong><br>
+                            Você informou uma identificação sigilosa neste protocolo. Caso deseje revogar essa identificação, você pode anonimizar seus dados definitivamente agora.
+                        </div>
+                        <form method="post" action="{% url 'anonimizar_dados_titular' denuncia.protocolo %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger text-nowrap" onclick="return confirm('Tem certeza? Seus dados de identificação serão apagados permanentemente.');">
+                                Excluir Meus Dados Pessoais
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

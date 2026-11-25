@@ -1,0 +1,40 @@
+{% extends 'denuncias/base.html' %}
+
+{% block title %}Denúncia Registrada — TrustLine{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7 text-center">
+        <div class="card card-clean p-4 p-md-5">
+            <div class="fs-1 mb-2">✅</div>
+            <h2 class="fw-bold mb-2">Denúncia Registrada com Segurança</h2>
+            <p class="text-muted mb-4">
+                Seu relato foi criptografado e encaminhado ao comitê de segurança e conformidade.
+                {% if anonima %}
+                    Nenhum dado pessoal foi coletado.
+                {% else %}
+                    Sua identificação foi cifrada e está protegida sob sigilo.
+                {% endif %}
+            </p>
+
+            <div class="alert alert-warning text-start small mb-4">
+                <strong>Importante:</strong> Guarde o código de protocolo abaixo em local seguro. Como não exigimos cadastro ou e-mail para manter o seu anonimato, este código é a <strong>única forma</strong> de acompanhar a apuração.
+            </div>
+
+            <div class="mb-4">
+                <div class="small text-uppercase text-muted fw-bold mb-2">Seu Protocolo Hash Único</div>
+                <div class="protocolo-box">{{ protocolo }}</div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'consultar_denuncia' %}?protocolo={{ protocolo }}" class="btn btn-primary fw-semibold">
+                    Acompanhar Agora
+                </a>
+                <a href="{% url 'index' %}" class="btn btn-outline-secondary">
+                    Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
